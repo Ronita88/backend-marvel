@@ -12,11 +12,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// je crée mes routes
-// le chemin du serveur marche
-// app.get("/", (req, res) => {
-//   res.json("welcome on Marvel");
-// });
+//backend-marvel-rone.herokuapp.com/// le chemin du serveur marche
+app.get("/", (req, res) => {
+  res.json("welcome on Marvel");
+});
 
 //   je veux que quand on se rend sur la route query "/"
 //   que le contenu api_marvel apparaisse
