@@ -1,7 +1,9 @@
+// const mongoose = require("mongoose"); // don't need it for now 'cuz no databases or authentification or cookies
+
 // import packages
 require("dotenv").config();
 const express = require("express");
-// const mongoose = require("mongoose");
+const axios = require("axios");
 const cors = require("cors");
 
 // mongoose.connect("mongodb://localhost/backend-marvel");
