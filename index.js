@@ -15,24 +15,25 @@ app.use(express.json());
 // je crée mes routes
 // le chemin du serveur marche
 app.get("/", (req, res) => {
+  res.json("welcome on Marvel");
+});
+
+app.get("/character", async (req, res) => {
   try {
-    axios
-      .get(
-        "https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=hkTaf6rbgV4bWJFO"
+    const response = await axios.get(
+      "https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=$"(
+        process.env.MARVEL_API_KEY
       )
-      .then((response) => {
-        console.log(response.data);
-      });
+    );
+    console.log(response.data);
+
+    res.json(response.data);
   } catch (error) {
     console.log(error);
   }
-  res.json(
-    "https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=hkTaf6rbgV4bWJFO"
-  );
 
   //   je veux que quand on se rend sur la route query "/"
   //   que le contenu api_marvel apparaisse
-  const fetchdata = () => {};
 
   app.all("*", (req, res) => {
     res.status(400).json("Route introuvable");
