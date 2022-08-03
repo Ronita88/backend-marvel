@@ -14,16 +14,16 @@ app.use(express.json());
 
 // je crée mes routes
 // le chemin du serveur marche
-app.get("/", (req, res) => {
-  res.json("welcome on Marvel");
-});
+// app.get("/", (req, res) => {
+//   res.json("welcome on Marvel");
+// });
 
-app.get("/character", async (req, res) => {
+//   je veux que quand on se rend sur la route query "/"
+//   que le contenu api_marvel apparaisse
+app.get("/characters", async (req, res) => {
   try {
     const response = await axios.get(
-      "https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=$"(
-        process.env.MARVEL_API_KEY
-      )
+      `https://lereacteur-marvel-api.herokuapp.com/characters?apiKey=${process.env.MARVEL_API_KEY}`
     );
     console.log(response.data);
 
@@ -31,14 +31,23 @@ app.get("/character", async (req, res) => {
   } catch (error) {
     console.log(error);
   }
-
-  //   je veux que quand on se rend sur la route query "/"
-  //   que le contenu api_marvel apparaisse
-
-  app.all("*", (req, res) => {
-    res.status(400).json("Route introuvable");
-  });
 });
+
+app.get("/comics", async (req, res) => {
+  try {
+    const response = await axios.get(
+      `https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=${process.env.MARVEL_API_KEY}`
+    );
+    res.json(response.data);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+app.all("*", (req, res) => {
+  res.status(400).json("Route introuvable");
+});
+
 app.listen(process.env.PORT, () => {
   console.log("server has started");
 });
