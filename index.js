@@ -4,6 +4,7 @@ require("dotenv").config();
 const express = require("express");
 const axios = require("axios");
 const cors = require("cors");
+const morgan = require("morgan");
 
 // mongoose.connect("mongodb://localhost/backend-marvel");
 // mongoose.connect(process.env.DATABASE_URL);
@@ -11,6 +12,7 @@ const cors = require("cors");
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(morgan("dev"));
 
 //backend-marvel-rone.herokuapp.com/// le chemin du serveur marche
 app.get("/", (req, res) => {
@@ -31,6 +33,19 @@ app.get("/characters", async (req, res) => {
     console.log(error);
   }
 });
+
+
+app.get("/character/:id", (req, res)=> {
+    try{
+const response= await axios.get(
+    `https://lereacteur-marvel-api.herokuapp.com/character/${req.params.id}?apiKey=${process.env.MARVEL_API_KEY}`
+);
+console.log(response.data);
+res.json(response.data)
+    }catch(error){
+        console.log(error)
+    }
+})
 
 app.get("/comics", async (req, res) => {
   try {
