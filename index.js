@@ -57,6 +57,19 @@ app.get("/comics", async (req, res) => {
   }
 });
 
+
+app.get("./comic/:id", (req, res)=>{
+  try{
+const response=await axios.get(
+  `https://lereacteur-marvel-api.herokuapp.com/comics/${req.params.id}?apiKey=${process.env.MARVEL_API_KEY}`
+);
+res.json(response.data);
+
+  }catch(error){
+    console.log(error)}
+})
+// 
+
 app.all("*", (req, res) => {
   res.status(400).json("Route introuvable");
 });
