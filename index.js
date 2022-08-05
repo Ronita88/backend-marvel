@@ -20,7 +20,7 @@ app.get("/", (req, res) => {
 });
 
 //   je veux que quand on se rend sur la route query "/"
-//   que le contenu api_marvel apparaisse
+//   que les characters de l'api_marvel apparaissent
 app.get("/characters", async (req, res) => {
   try {
     const response = await axios.get(
@@ -34,10 +34,24 @@ app.get("/characters", async (req, res) => {
   }
 });
 
+// cette route affiche le personnage
+// app.get("/character:id", async (req, res) => {
+//   try {
+//     const response = await axios.get(
+//       `https://lereacteur-marvel-api.herokuapp.com/character/${req.params.id}?apiKey=${process.env.MARVEL_API_KEY}`
+//     );
+//     console.log(response.data);
+//     res.json(response.data);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// });
+
+// cette route fait apparaitre le character et les comics dans lequel il apparait
 app.get("/character/:id", async (req, res) => {
   try {
     const response = await axios.get(
-      `https://lereacteur-marvel-api.herokuapp.com/character/${req.params.id}?apiKey=${process.env.MARVEL_API_KEY}`
+      `https://lereacteur-marvel-api.herokuapp.com/comics/${req.params.id}?apiKey=${process.env.MARVEL_API_KEY}`
     );
     console.log(response.data);
     res.json(response.data);
