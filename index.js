@@ -35,19 +35,6 @@ app.get("/characters", async (req, res) => {
 });
 
 // cette route affiche le personnage
-// app.get("/character:id", async (req, res) => {
-//   try {
-//     const response = await axios.get(
-//       `https://lereacteur-marvel-api.herokuapp.com/character/${req.params.id}?apiKey=${process.env.MARVEL_API_KEY}`
-//     );
-//     console.log(response.data);
-//     res.json(response.data);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// });
-
-// cette route fait apparaitre le character et les comics dans lequel il apparait
 app.get("/character/:id", async (req, res) => {
   try {
     const response = await axios.get(
@@ -60,6 +47,7 @@ app.get("/character/:id", async (req, res) => {
   }
 });
 
+// cette route affiche tous les comics
 app.get("/comics", async (req, res) => {
   try {
     const response = await axios.get(
@@ -71,6 +59,7 @@ app.get("/comics", async (req, res) => {
   }
 });
 
+// cette route affiche le comic avec un useParams
 app.get("/comic/:id", async (req, res) => {
   try {
     const response = await axios.get(
@@ -81,8 +70,21 @@ app.get("/comic/:id", async (req, res) => {
     res.json({ message: error.message });
   }
 });
-//
 
+// cette route fait apparaitre le character et les comics dans lequel il apparait
+app.get("comics/:id", async (req, res) => {
+  try {
+    const response = await axios.get(
+      `https://lereacteur-marvel-api.herokuapp.com/comics/${req.params.id}?apiKey=${process.env.MARVEL_API_KEY}`
+    );
+    console.log(response.data);
+    res.json(response.data);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// en cas de routes introuvables
 app.all("*", (req, res) => {
   res.status(400).json("Route introuvable");
 });
