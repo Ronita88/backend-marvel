@@ -61,10 +61,10 @@ https: app.get("/comics", async (req, res) => {
 });
 
 // cette route affiche le comic avec un useParams
-app.get("/comic/:id", async (req, res) => {
+app.get("/comic/:characterId", async (req, res) => {
   try {
     const response = await axios.get(
-      `https://lereacteur-marvel-api.herokuapp.com/comic/${req.params.id}?apiKey=${process.env.MARVEL_API_KEY}`
+      `https://lereacteur-marvel-api.herokuapp.com/comic/${req.params.characterId}?apiKey=${process.env.MARVEL_API_KEY}`
     );
     res.json(response.data);
   } catch (error) {
@@ -78,7 +78,7 @@ app.get("/comic/:id", async (req, res) => {
 app.get("/comics/:characterId", async (req, res) => {
   try {
     const response = await axios.get(
-      `https://lereacteur-marvel-api.herokuapp.com/comics/${req.params.id}?apiKey=${process.env.MARVEL_API_KEY}`
+      `https://lereacteur-marvel-api.herokuapp.com/comics/${req.params.characterId}?apiKey=${process.env.MARVEL_API_KEY}`
     );
     console.log(response.data);
     res.json(response.data);
