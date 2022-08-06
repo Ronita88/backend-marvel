@@ -19,9 +19,9 @@ app.get("/", (req, res) => {
   res.json("welcome on Marvel");
 });
 
-//   je veux que quand on se rend sur la route query "/"
-//   que les characters de l'api_marvel apparaissent
-app.get("/characters", async (req, res) => {
+// je veux que les characters de l'api_marvel apparaissent
+//https://lereacteur-marvel-api.herokuapp.com/characters?apiKey=YOUR_API_KEY
+https: app.get("/characters", async (req, res) => {
   try {
     const response = await axios.get(
       `https://lereacteur-marvel-api.herokuapp.com/characters?apiKey=${process.env.MARVEL_API_KEY}`
@@ -34,7 +34,7 @@ app.get("/characters", async (req, res) => {
   }
 });
 
-// cette route affiche le personnage
+// cette route affiche que le personnage
 app.get("/character/:id", async (req, res) => {
   try {
     const response = await axios.get(
@@ -48,7 +48,8 @@ app.get("/character/:id", async (req, res) => {
 });
 
 // cette route affiche tous les comics
-app.get("/comics", async (req, res) => {
+//https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=YOUR_API_KEY
+https: app.get("/comics", async (req, res) => {
   try {
     const response = await axios.get(
       `https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=${process.env.MARVEL_API_KEY}`
@@ -72,7 +73,9 @@ app.get("/comic/:id", async (req, res) => {
 });
 
 // cette route fait apparaitre le character et les comics dans lequel il apparait
-app.get("comics/:id", async (req, res) => {
+// Route : /comics/:characterId
+// https://lereacteur-marvel-api.herokuapp.com/comics/5fc8ba1fdc33470f788f88b3?apiKey=YOUR_API_KEY
+app.get("/comics/:characterId", async (req, res) => {
   try {
     const response = await axios.get(
       `https://lereacteur-marvel-api.herokuapp.com/comics/${req.params.id}?apiKey=${process.env.MARVEL_API_KEY}`
