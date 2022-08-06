@@ -36,10 +36,12 @@ app.get("/characters", async (req, res) => {
 
 // cette route affiche tous les comics
 //https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=YOUR_API_KEY
+// je passe en query les paramètres qui viennent du front pour interroger l'API marvel
+// la requête du front ne peut pas interroger l'api marvel en direct
 app.get("/comics", async (req, res) => {
   try {
     const response = await axios.get(
-      `https://lereacteur-marvel-api.herokuapp.com/comics?limit=5&page=1&apiKey=${process.env.MARVEL_API_KEY}`
+      `https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=${process.env.MARVEL_API_KEY}&limit=${req.query.limit}&page=${req.query.page}`
     );
     res.json(response.data);
   } catch (error) {
