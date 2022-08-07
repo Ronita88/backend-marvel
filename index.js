@@ -36,14 +36,19 @@ app.get("/characters", async (req, res) => {
 
 // cette route affiche tous les comics
 //https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=YOUR_API_KEY
-// je passe en query les paramètres qui viennent du front pour interroger l'API marvel
-// la requête du front ne peut pas interroger l'api marvel en direct
+// je passe en query les paramètres qui viennent du front pour interroger l'API marvel : limit & skip pour gérer la pagination
+// limit = 100 résultats par page (transmis par le front) et skip pour le saut de 100 résultats à chaque saut de page
+// la requête du front ne peut pas interroger l'api marvel en direct donc je dois l'intégrer dans mon route
+// je veux lancer une recherche par le nom du comics sur la page, il faut que je la passe aussi en paramètre avec le title
+// reminder: tous les params acceptés par l'API sont présents dans l'énoncé dans la colone Qiery
 app.get("/comics", async (req, res) => {
   try {
     const response = await axios.get(
       `https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=${
         process.env.MARVEL_API_KEY
-      }&limit=${req.query.limit}&skip=${req.query.page * req.query.limit}`
+      }&limit=${req.query.limit}&skip=${
+        req.query.page * req.query.limit
+      }&title=${req.query.title}`
     );
     res.json(response.data);
   } catch (error) {
