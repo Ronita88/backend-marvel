@@ -75,6 +75,19 @@ app.get("/comics/:characterId", async (req, res) => {
   }
 });
 
+// cette route affiche que le personnage
+app.get("/character/:id", async (req, res) => {
+  try {
+    const response = await axios.get(
+      `https://lereacteur-marvel-api.herokuapp.com/comics/${req.params.id}?apiKey=${process.env.MARVEL_API_KEY}`
+    );
+    console.log(response.data);
+    res.json(response.data);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 // en cas de routes introuvables
 app.all("*", (req, res) => {
   res.status(400).json("Route introuvable");
@@ -83,16 +96,3 @@ app.all("*", (req, res) => {
 app.listen(process.env.PORT, () => {
   console.log("server has started");
 });
-
-// cette route affiche que le personnage
-// app.get("/character/:id", async (req, res) => {
-//   try {
-//     const response = await axios.get(
-//       `https://lereacteur-marvel-api.herokuapp.com/comics/${req.params.id}?apiKey=${process.env.MARVEL_API_KEY}`
-//     );
-//     console.log(response.data);
-//     res.json(response.data);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// });
